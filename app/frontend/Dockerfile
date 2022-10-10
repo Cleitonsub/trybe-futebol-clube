@@ -1,6 +1,7 @@
 FROM node:16.14-alpine
 WORKDIR /app-frontend
-COPY . .
+COPY package* ./
 RUN npm install
+COPY . .
 CMD [ "npm", "start" ]
 EXPOSE 3000
