@@ -20,7 +20,7 @@ class LoginService {
     if (!valPassword) throw new Err(401, wrongEmailOurPass);
 
     const { token } = createToken(email);
-    console.log(token);
+
     return { code: 200, data: token };
   }
 
