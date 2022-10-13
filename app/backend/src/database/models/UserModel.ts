@@ -18,19 +18,20 @@ UserModel.init({
     allowNull: false,
   },
   username: {
-    type: STRING(100),
+    type: STRING,
     allowNull: false,
   },
   role: {
-    type: STRING(100),
+    type: STRING,
     allowNull: false,
   },
   email: {
-    type: STRING(100),
+    type: STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
-    type: STRING(100),
+    type: STRING,
     allowNull: false,
   },
 }, {
@@ -40,8 +41,8 @@ UserModel.init({
   timestamps: false,
 });
 
-  /*
-  * `Workaround` para aplicar as associations em TS: 
+/*
+  * `Workaround` para aplicar as associations em TS:
   * Associations 1:N devem ficar em uma das instâncias de modelo
   */
 
