@@ -28,4 +28,15 @@ describe('Teste em POST /login', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.have.property('token');
   });
+
+  it('nega o acesso do usuário com a falta do email no front-end', async () => {
+    const chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: '',
+      password: 'secret_admin',
+    });
+    expect(chaiHttpResponse.status).to.be.equal(400);
+    expect(chaiHttpResponse.body).to.be.a('object');
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
+  });
 });
