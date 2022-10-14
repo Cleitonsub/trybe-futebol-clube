@@ -15,7 +15,7 @@ const { expect } = chai;
 describe('Teste em POST /login', () => {
 
   before(async () =>
-  sinon.stub(UserModel, 'findOne').resolves(adminData as UserModel)
+    sinon.stub(UserModel, 'findOne').resolves(adminData as UserModel)
   );
 
   after(() => (UserModel.findOne as sinon.SinonStub).restore());
@@ -65,7 +65,7 @@ describe('Teste em POST /login', () => {
   it('nega o acesso do usuário com o password inválido no front-end', async () => {
     const chaiHttpResponse = await chai.request(app).post('/login').send({
       email: 'admin@admin.com',
-      password: 'teste',
+      password: 'teste123',
     });
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body).to.be.a('object');
@@ -77,7 +77,7 @@ describe('Teste em POST /login', () => {
 describe('Teste em GET /login/validate', () => {
 
   before(async () =>
-  sinon.stub(UserModel, 'findOne').resolves(userData as UserModel)
+    sinon.stub(UserModel, 'findOne').resolves(userData as UserModel)
   );
 
   after(() => (UserModel.findOne as sinon.SinonStub).restore());
