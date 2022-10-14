@@ -61,4 +61,15 @@ describe('Teste em POST /login', () => {
     expect(chaiHttpResponse.body).to.have.property('message');
     expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
   });
+
+  it('nega o acesso do usuário com o password inválido no front-end', async () => {
+    const chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: 'admin@admin.com',
+      password: 'teste',
+    });
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body).to.be.a('object');
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+  });
 });
