@@ -21,6 +21,7 @@ MatchesModel.init({
   homeTeam: {
     type: INTEGER,
     allowNull: false,
+    field: 'home_team',
     references: {
       model: 'teams',
       key: 'id',
@@ -29,10 +30,12 @@ MatchesModel.init({
   homeTeamGoals: {
     type: INTEGER,
     allowNull: false,
+    field: 'home_team_goals',
   },
   awayTeam: {
     type: INTEGER,
     allowNull: false,
+    field: 'away_team',
     references: {
       model: 'teams',
       key: 'id',
@@ -41,6 +44,7 @@ MatchesModel.init({
   awayTeamGoals: {
     type: INTEGER,
     allowNull: false,
+    field: 'away_team_goals',
   },
   inProgress: {
     type: INTEGER,
