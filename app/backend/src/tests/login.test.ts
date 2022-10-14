@@ -50,4 +50,15 @@ describe('Teste em POST /login', () => {
     expect(chaiHttpResponse.body).to.have.property('message');
     expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
   });
+
+  it('nega o acesso do usuário com o email inválido no front-end', async () => {
+    const chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: 'test@test.com',
+      password: 'secret_admin',
+    });
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body).to.be.a('object');
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+  });
 });
