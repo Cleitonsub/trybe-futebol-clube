@@ -6,7 +6,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import UserModel from '../database/models/UserModel';
 
-import { adminData } from './usersMock';
+import { adminData, token, userData } from './usersMock';
 
 chai.use(chaiHttp);
 
@@ -71,5 +71,20 @@ describe('Teste em POST /login', () => {
     expect(chaiHttpResponse.body).to.be.a('object');
     expect(chaiHttpResponse.body).to.have.property('message');
     expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+  });
+});
+
+describe('Teste em GET /login/validate', () => {
+
+  before(async () =>
+  sinon.stub(UserModel, 'findOne').resolves(userData as UserModel)
+  );
+
+  after(() => (UserModel.findOne as sinon.SinonStub).restore());
+
+  it('retorna os dados corretamente no front-end com validação do token aceita', async () => {
+    const chaiHttpResponse = await chai.request(app).get('/login/validate').set('authorization', token);
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.deep.equal({ role: userData.role });
   });
 });
