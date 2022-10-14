@@ -87,4 +87,10 @@ describe('Teste em GET /login/validate', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.deep.equal({ role: userData.role });
   });
+
+  it('retorna os dados corretamente no front-end com validação do token negada', async () => {
+    const chaiHttpResponse = await chai.request(app).get('/login/validate').set('authorization', '');
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body).to.deep.equal({ role: userData.role });
+  });
 });
