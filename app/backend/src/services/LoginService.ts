@@ -14,7 +14,7 @@ class LoginService {
     const { email, password } = userData;
 
     const user = await this.userModel.findOne({ where: { email } });
-    if (!user) throw new Err(401, wrongEmailOurPass);
+    if (user?.email !== email) throw new Err(401, wrongEmailOurPass);
 
     const valPassword = await bcrypt.compare(password, user.password);
     if (!valPassword) throw new Err(401, wrongEmailOurPass);
