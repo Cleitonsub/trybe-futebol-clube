@@ -9,11 +9,10 @@ const tokenValidate = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const user = verifyToken(authorization);
-    if (!user) throw new Err(401, 'Token must be a valid token');
     req.body.user = user;
     next();
   } catch (error) {
-    next(error);
+    throw new Err(401, 'Token must be a valid token');
   }
 };
 
