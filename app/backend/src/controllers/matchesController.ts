@@ -25,6 +25,13 @@ class MatchesController {
 
     return res.status(code).json(data);
   };
+
+  public updateById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { code, data } = await this.matchesService.updateById(Number(id));
+
+    return res.status(code).json(data);
+  };
 }
 
 export default MatchesController;

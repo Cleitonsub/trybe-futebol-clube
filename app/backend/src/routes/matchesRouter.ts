@@ -8,9 +8,10 @@ const router = express.Router();
 
 const matchesService = new MatchesService(MatchesModel);
 const matchesController = new MatchesController(matchesService);
-const { getAllMatches, saveMatches } = matchesController;
+const { getAllMatches, saveMatches, updateById } = matchesController;
 
 router.get('/', getAllMatches);
 router.post('/', tokenValidate, saveMatches);
+router.patch('/:id/finish', updateById);
 
 export default router;

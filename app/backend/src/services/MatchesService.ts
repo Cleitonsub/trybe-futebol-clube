@@ -52,6 +52,12 @@ class MatchesService {
 
     return { code: 201, data: result };
   }
+
+  public async updateById(id: number): Promise<ITeam> {
+    await this.matchesModel.update({ inProgress: false }, { where: { id } });
+
+    return { code: 200, data: { message: 'Finished' } };
+  }
 }
 
 export default MatchesService;
