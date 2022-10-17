@@ -8,7 +8,10 @@ class MatchesController {
     const { inProgress } = req.query;
 
     if (inProgress) {
-      const { code, data } = await this.matchesService.getAllMatchesInProgress();
+      const {
+        code,
+        data,
+      } = await this.matchesService.getAllMatchesInProgress(inProgress === 'true');
       return res.status(code).json(data);
     }
 

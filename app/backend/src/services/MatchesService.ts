@@ -18,9 +18,9 @@ class MatchesService {
     return { code: 200, data: result };
   }
 
-  public async getAllMatchesInProgress(): Promise<ITeam> {
+  public async getAllMatchesInProgress(progress: boolean): Promise<ITeam> {
     const result = await this.matchesModel.findAll(
-      { where: { inProgress: true },
+      { where: { inProgress: progress },
         include: [{
           model: TeamsModel, as: 'teamHome', attributes: { exclude: ['id'] },
         },
