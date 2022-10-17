@@ -19,6 +19,12 @@ class MatchesController {
 
     return res.status(code).json(data);
   };
+
+  public saveMatches = async (req: Request, res: Response) => {
+    const { code, data } = await this.matchesService.saveMatches(req.body);
+
+    return res.status(code).json(data);
+  };
 }
 
 export default MatchesController;
