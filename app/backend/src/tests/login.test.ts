@@ -23,71 +23,71 @@ describe('Testes com login', () => {
   describe('Testes em POST /login', () => {
 
     it('permite o acesso do usuário com dados válidos no front-end', async () => {
-      const chaiHttpResponse = await chai.request(app).post('/login').send({
+      const { status, body } = await chai.request(app).post('/login').send({
         email: 'admin@admin.com',
         password: 'secret_admin',
       });
-      expect(chaiHttpResponse.status).to.be.equal(200);
-      expect(chaiHttpResponse.body).to.have.property('token');
+      expect(status).to.be.equal(200);
+      expect(body).to.have.property('token');
     });
 
     it('nega o acesso do usuário com a falta do email no front-end', async () => {
-      const chaiHttpResponse = await chai.request(app).post('/login').send({
+      const { status, body } = await chai.request(app).post('/login').send({
         email: '',
         password: 'secret_admin',
       });
-      expect(chaiHttpResponse.status).to.be.equal(400);
-      expect(chaiHttpResponse.body).to.be.a('object');
-      expect(chaiHttpResponse.body).to.have.property('message');
-      expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
+      expect(status).to.be.equal(400);
+      expect(body).to.be.a('object');
+      expect(body).to.have.property('message');
+      expect(body.message).to.be.equal('All fields must be filled');
     });
 
     it('nega o acesso do usuário com a falta de password no front-end', async () => {
-      const chaiHttpResponse = await chai.request(app).post('/login').send({
+      const { status, body } = await chai.request(app).post('/login').send({
         email: 'admin@admin.com',
         password: '',
       });
-      expect(chaiHttpResponse.status).to.be.equal(400);
-      expect(chaiHttpResponse.body).to.be.a('object');
-      expect(chaiHttpResponse.body).to.have.property('message');
-      expect(chaiHttpResponse.body.message).to.be.equal('All fields must be filled');
+      expect(status).to.be.equal(400);
+      expect(body).to.be.a('object');
+      expect(body).to.have.property('message');
+      expect(body.message).to.be.equal('All fields must be filled');
     });
 
     it('nega o acesso do usuário com o email inválido no front-end', async () => {
-      const chaiHttpResponse = await chai.request(app).post('/login').send({
+      const { status, body } = await chai.request(app).post('/login').send({
         email: 'test@test.com',
         password: 'secret_admin',
       });
-      expect(chaiHttpResponse.status).to.be.equal(401);
-      expect(chaiHttpResponse.body).to.be.a('object');
-      expect(chaiHttpResponse.body).to.have.property('message');
-      expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+      expect(status).to.be.equal(401);
+      expect(body).to.be.a('object');
+      expect(body).to.have.property('message');
+      expect(body.message).to.be.equal('Incorrect email or password');
     });
 
     it('nega o acesso do usuário com o password inválido no front-end', async () => {
-      const chaiHttpResponse = await chai.request(app).post('/login').send({
+      const { status, body } = await chai.request(app).post('/login').send({
         email: 'admin@admin.com',
         password: 'teste123',
       });
-      expect(chaiHttpResponse.status).to.be.equal(401);
-      expect(chaiHttpResponse.body).to.be.a('object');
-      expect(chaiHttpResponse.body).to.have.property('message');
-      expect(chaiHttpResponse.body.message).to.be.equal('Incorrect email or password');
+      expect(status).to.be.equal(401);
+      expect(body).to.be.a('object');
+      expect(body).to.have.property('message');
+      expect(body.message).to.be.equal('Incorrect email or password');
     });
   });
 
   describe('Testes em GET /login/validate', () => {
 
     it('retorna os dados corretamente no front-end com validação do token aceita', async () => {
-      const chaiHttpResponse = await chai.request(app).get('/login/validate').set('authorization', token);
-      expect(chaiHttpResponse.status).to.be.equal(200);
-      expect(chaiHttpResponse.body).to.deep.equal({ role: adminData.role });
+      const { status, body } = await chai.request(app).get('/login/validate').set('authorization', token);
+      expect(status).to.be.equal(200);
+      expect(body).to.deep.equal({ role: adminData.role });
     });
 
     it('retorna os dados corretamente no front-end com validação do token negada', async () => {
-      const chaiHttpResponse = await chai.request(app).get('/login/validate').set('authorization', '');
-      expect(chaiHttpResponse.status).to.be.equal(401);
-      expect(chaiHttpResponse.body).to.deep.equal({ message: 'Token must be a valid token' });
+      const { status, body } = await chai.request(app).get('/login/validate').set('authorization', '');
+      expect(status).to.be.equal(401);
+      expect(body).to.deep.equal({ message: 'Token must be a valid token' });
     });
   });
 });
