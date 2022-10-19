@@ -6,7 +6,7 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import UserModel from '../database/models/UserModel';
 
-import { adminData, token } from './usersMock';
+import { adminData, token } from './Mocks/usersMock';
 
 chai.use(chaiHttp);
 
