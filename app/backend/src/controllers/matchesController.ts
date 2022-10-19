@@ -32,6 +32,14 @@ class MatchesController {
 
     return res.status(code).json(data);
   };
+
+  public updateProgressById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const { code, data } = await this.matchesService.updateProgressById(Number(id), req.body);
+
+    return res.status(code).json(data);
+  };
 }
 
 export default MatchesController;

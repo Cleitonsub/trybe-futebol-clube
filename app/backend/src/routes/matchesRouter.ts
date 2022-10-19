@@ -8,10 +8,16 @@ const router = express.Router();
 
 const matchesService = new MatchesService(MatchesModel);
 const matchesController = new MatchesController(matchesService);
-const { getAllMatches, saveMatches, updateById } = matchesController;
+const {
+  getAllMatches,
+  saveMatches,
+  updateById,
+  updateProgressById,
+} = matchesController;
 
 router.get('/', getAllMatches);
 router.post('/', tokenValidate, saveMatches);
+router.patch('/:id', updateProgressById);
 router.patch('/:id/finish', updateById);
 
 export default router;

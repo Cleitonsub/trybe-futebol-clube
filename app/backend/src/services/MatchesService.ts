@@ -3,6 +3,7 @@ import MatchesModel from '../database/models/MatchesModel';
 import { ITeam } from '../interfaces/ITeam';
 import { IMatches } from '../interfaces/IMatches';
 import { Err } from '../middlewares/errorMiddleware';
+import { IUpProgress } from '../interfaces/IUpProgress';
 
 class MatchesService {
   constructor(private matchesModel: typeof MatchesModel) {}
@@ -57,6 +58,12 @@ class MatchesService {
     await this.matchesModel.update({ inProgress: false }, { where: { id } });
 
     return { code: 200, data: { message: 'Finished' } };
+  }
+
+  public async updateProgressById(id: number, body: IUpProgress): Promise<ITeam> {
+    await this.matchesModel.update(body, { where: { id } });
+
+    return { code: 200, data: { message: 'Updated score' } };
   }
 }
 
