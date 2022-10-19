@@ -1,6 +1,6 @@
 import TeamsModel from '../database/models/TeamsModel';
 import MatchesModel from '../database/models/MatchesModel';
-import { ITeam } from '../interfaces/ITeam';
+import { IResponse } from '../interfaces/IResponse';
 import { IMatches } from '../interfaces/IMatches';
 import { Err } from '../middlewares/errorMiddleware';
 import { IUpProgress } from '../interfaces/IUpProgress';
@@ -8,7 +8,7 @@ import { IUpProgress } from '../interfaces/IUpProgress';
 class MatchesService {
   constructor(private matchesModel: typeof MatchesModel) {}
 
-  public async getAllMatches(): Promise<ITeam> {
+  public async getAllMatches(): Promise<IResponse> {
     const result = await this.matchesModel.findAll({
       include: [{
         model: TeamsModel, as: 'teamHome', attributes: { exclude: ['id'] },
@@ -21,7 +21,7 @@ class MatchesService {
     return { code: 200, data: result };
   }
 
-  public async getAllMatchesInProgress(progress: boolean): Promise<ITeam> {
+  public async getAllMatchesInProgress(progress: boolean): Promise<IResponse> {
     const result = await this.matchesModel.findAll(
       { where: { inProgress: progress },
         include: [{
@@ -36,7 +36,7 @@ class MatchesService {
     return { code: 200, data: result };
   }
 
-  public async saveMatches(body: IMatches): Promise<ITeam> {
+  public async saveMatches(body: IMatches): Promise<IResponse> {
     const { homeTeam, awayTeam } = body;
 
     if (homeTeam === awayTeam) {
@@ -54,13 +54,13 @@ class MatchesService {
     return { code: 201, data: result };
   }
 
-  public async updateById(id: number): Promise<ITeam> {
+  public async updateById(id: number): Promise<IResponse> {
     await this.matchesModel.update({ inProgress: false }, { where: { id } });
 
     return { code: 200, data: { message: 'Finished' } };
   }
 
-  public async updateProgressById(id: number, body: IUpProgress): Promise<ITeam> {
+  public async updateProgressById(id: number, body: IUpProgress): Promise<IResponse> {
     await this.matchesModel.update(body, { where: { id } });
 
     return { code: 200, data: { message: 'Updated score' } };

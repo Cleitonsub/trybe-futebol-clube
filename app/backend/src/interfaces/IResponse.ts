@@ -1,4 +1,4 @@
-export interface ITeam {
+export interface IResponse {
   code: number,
   data: object,
 }
