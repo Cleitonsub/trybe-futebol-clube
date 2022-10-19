@@ -60,6 +60,8 @@ MatchesModel.init({
 
 MatchesModel.belongsTo(TeamsModel, { foreignKey: 'homeTeam', as: 'teamHome' });
 MatchesModel.belongsTo(TeamsModel, { foreignKey: 'awayTeam', as: 'teamAway' });
+TeamsModel.hasMany(MatchesModel, { foreignKey: 'homeTeam', as: 'matchesHome' });
+TeamsModel.hasMany(MatchesModel, { foreignKey: 'awayTeam', as: 'matchesAway' });
 
 /*
   * `Workaround` para aplicar as associations em TS:
