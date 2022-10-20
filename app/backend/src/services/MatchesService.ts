@@ -17,6 +17,7 @@ class MatchesService {
         model: TeamsModel, as: 'teamAway', attributes: { exclude: ['id'] },
       }],
     });
+    if (!result) throw new Err(404, 'No matches found');
 
     return { code: 200, data: result };
   }

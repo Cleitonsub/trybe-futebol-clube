@@ -15,14 +15,14 @@ const { expect } = chai;
 describe('Testes com teams' , () => {
 
   beforeEach(async () => {
-    sinon.stub(TeamsModel, 'findAll').resolves( TeamsData as TeamsModel[]);
-    sinon.stub(TeamsModel, 'findByPk').resolves( TeamData as TeamsModel);
+    sinon.stub(TeamsModel, 'findAll').resolves(TeamsData as TeamsModel[]);
+    sinon.stub(TeamsModel, 'findByPk').resolves(TeamData as TeamsModel);
   });
 
-  afterEach(()=>{
+  afterEach(() => {
    (TeamsModel.findAll as sinon.SinonStub).restore();
    (TeamsModel.findByPk as sinon.SinonStub).restore();
-  })
+  });
 
   describe('Testes em GET /teams', () => {
 
