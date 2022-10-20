@@ -1,13 +1,13 @@
+import { ITeams } from '../interfaces/ITeams';
 import { IRatings } from '../interfaces/IRating';
-import { ITeamsHome } from '../interfaces/ITeamsHome';
 
-const calculateTotalPoints = (teams: any) => {
+const forEachForMatchesHome = (teams: any, currentMatch: string) => {
   let wins = 0;
   let loss = 0;
   let draw = 0;
   let totalPoints = 0;
 
-  teams.matchesHome.forEach((matches: any) => {
+  teams[currentMatch].forEach((matches: any) => {
     if (matches.homeTeamGoals > matches.awayTeamGoals) {
       wins += 1;
       totalPoints += 3;
@@ -19,13 +19,52 @@ const calculateTotalPoints = (teams: any) => {
       totalPoints += 1;
     }
   });
-
   return { wins, loss, draw, totalPoints };
 };
 
-const calculateGoals = (teams: ITeamsHome) => {
+const forEachForMatchesAway = (teams: any, currentMatch: string) => {
+  let wins = 0;
+  let loss = 0;
+  let draw = 0;
+  let totalPoints = 0;
+
+  teams[currentMatch].forEach((matches: any) => {
+    if (matches.homeTeamGoals < matches.awayTeamGoals) {
+      wins += 1;
+      totalPoints += 3;
+    } else if (matches.homeTeamGoals > matches.awayTeamGoals) {
+      loss += 1;
+      totalPoints += 0;
+    } else if (matches.homeTeamGoals === matches.awayTeamGoals) {
+      draw += 1;
+      totalPoints += 1;
+    }
+  });
+  return { wins, loss, draw, totalPoints };
+};
+
+const calculateTotalPoints = (teams: any, currentMatch: string) => {
+  if (currentMatch === 'matchesHome') {
+    const results = forEachForMatchesHome(teams, currentMatch);
+    return results;
+  }
+  const results = forEachForMatchesAway(teams, currentMatch);
+  return results;
+};
+
+const calculateGoals = (teams: ITeams) => {
   let goalsFavor = 0;
   let goalsOwn = 0;
+  if (!teams.matchesHome) {
+    teams.matchesAway?.forEach((matches) => {
+      goalsFavor += matches.awayTeamGoals;
+      goalsOwn += matches.homeTeamGoals;
+    });
+
+    const goalsBalance = goalsFavor - goalsOwn;
+
+    return { goalsBalance, goalsFavor, goalsOwn };
+  }
 
   teams.matchesHome.forEach((matches) => {
     goalsFavor += matches.homeTeamGoals;
@@ -37,10 +76,10 @@ const calculateGoals = (teams: ITeamsHome) => {
   return { goalsBalance, goalsFavor, goalsOwn };
 };
 
-const totalRating = (teams: any) => {
-  const points = calculateTotalPoints(teams);
+const totalRating = (teams: any, currentMatch: string) => {
+  const points = calculateTotalPoints(teams, currentMatch);
   const goals = calculateGoals(teams);
-  const totalGames = teams.matchesHome.length;
+  const totalGames = teams[currentMatch].length;
   const efficiency = (points.totalPoints / (totalGames * 3)) * 100;
 
   return {

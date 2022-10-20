@@ -7,8 +7,9 @@ const router = express.Router();
 
 const leaderboardService = new LeaderboardService(TeamsModel);
 const leaderboardController = new LeaderboardController(leaderboardService);
-const { getFinishedHomeTeam } = leaderboardController;
+const { getFinishedHomeTeam, getFinishedAwayTeam } = leaderboardController;
 
 router.get('/home', getFinishedHomeTeam);
+router.get('/away', getFinishedAwayTeam);
 
 export default router;
