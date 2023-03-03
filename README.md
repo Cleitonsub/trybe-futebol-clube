@@ -1,4 +1,8 @@
 # :construction: README em construção ! :construction:
+
+Esse projeto foi realizado com a intenção de praticar habilidades no back-end e testes. </br>
+Todo o front-end foi entregue pela Trybe.
+
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto.
 É essencial que você preencha esse documento por conta própria, ok?
