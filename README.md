@@ -1,7 +1,7 @@
 # :construction: README em construção ! :construction:
 
 Esse projeto foi realizado com a intenção de praticar habilidades no back-end e testes. </br>
-Todo o front-end foi entregue pela Trybe.
+Aplicação web construída individualmente, a partir de uma aplicação front-end desenvolvida pela Trybe, a api prove as informações necessárias para um site informativo sobre partidas e classificações de futebol.
 
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto.
