@@ -1,7 +1,10 @@
 # :construction: README em construção ! :construction:
-
-Esse projeto foi realizado com a intenção de praticar habilidades no back-end e testes. </br>
-Aplicação web construída individualmente, a partir de uma aplicação front-end desenvolvida pela Trybe, a api prove as informações necessárias para um site informativo sobre partidas e classificações de futebol.
+</br>
+Esse projeto foi realizado com a intenção de praticar habilidades no back-end e testes.</br>
+</br>
+Aplicação web construída individualmente, a partir de uma aplicação front-end desenvolvida pela Trybe, a api prove as informações necessárias para um site informativo sobre partidas e classificações de futebol.</br>
+</br>
+Tecnologias Utilizadas: Node.js, Express, JavaScript, TypeScript, MySQL, Sequelize, Docker, JsonWebToken, Jest, Mocha, Sinon, Chai.
 
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto.
